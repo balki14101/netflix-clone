@@ -12,6 +12,7 @@ const MovieData = (data, onpress) => {
         onpress(data.id);
       }}
       style={styles.items}>
+      <Image source={{uri: uri}} style={{height: 25, width: 25}} />
       <Text style={{color: '#fff'}}>{data.original_title}</Text>
     </TouchableOpacity>
   );
@@ -26,9 +27,11 @@ class List extends React.Component {
     fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=628f811dd14b86f8fea17c431c364235&language=en-US&page=1`,
     )
-      .then((response = response.json()))
-      .then(json => console.log({RESPONSE: json}));
-    this.setState({list: json.results});
+      .then(response => response.json())
+      .then(json => {
+        console.log({RESPONSE: json});
+        this.setState({list: json.results});
+      });
   };
 
   gotodetailsscreen = MovieId => {
