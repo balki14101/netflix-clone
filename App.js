@@ -8,16 +8,27 @@ import Details from './Screens/Details';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-const stack = createStackNavigator();
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container}>
-        <stack.Navigator>
-          <stack.Screen name="LIST" Component={List} />
-          <stack.Screen name="Details" component={Details} />
-        </stack.Navigator>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="Home"
+            component={List}
+            options={{
+              title: 'List',
+              headerTintColor: '#808080',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+              headerStyle: {backgroundColor: '#000'},
+            }}
+          />
+          <Stack.Screen name="Details" component={Details} />
+        </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
   );

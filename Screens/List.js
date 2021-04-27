@@ -1,19 +1,52 @@
 import React from 'react';
-import {FlatList, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {
+  FlatList,
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+} from 'react-native';
 
 const IMAGE_URI = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
-const MovieData = (data, onpress) => {
+const MovieData = ({data, onpress}) => {
   const uri = IMAGE_URI + data.poster_path;
 
   return (
     <TouchableOpacity
-      onpress={() => {
+      onPress={() => {
         onpress(data.id);
       }}
       style={styles.items}>
-      <Image source={{uri: uri}} style={{height: 25, width: 25}} />
-      <Text style={{color: '#fff'}}>{data.original_title}</Text>
+      <View style={{flexDirection: 'row'}}>
+        <Image
+          source={{uri: uri}}
+          style={{
+            height: 140,
+            width: 90,
+            marginLeft: 5,
+            borderRadius: 5,
+          }}
+        />
+        <View
+          style={{
+            marginLeft: 10,
+            justifyContent: 'space-evenly',
+          }}>
+          <View style={{marginRight: 95}}>
+            <Text style={{color: '#fff', fontSize: 18}}>{data.title}</Text>
+          </View>
+          <View>
+            <Text style={{color: 'gold', fontWeight: 'bold'}}>
+              {data.vote_average}
+            </Text>
+            {/* <Text style={{color: '#fff'}}>director</Text> */}
+
+            <Text style={{color: '#fff'}}>{data.original_language}</Text>
+          </View>
+        </View>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -39,15 +72,17 @@ class List extends React.Component {
   };
 
   renderMovieItem = item => {
-    return <MovieData data={item} onpress={this.gotodetailsscreen} />;
+    console.log('this is item', item.item);
+    return <MovieData data={item.item} onpress={this.gotodetailsscreen} />;
   };
   render() {
+    console.log(this.state.list);
     return (
       <View style={styles.container}>
         <FlatList
           data={this.state.list}
           renderItem={this.renderMovieItem}
-          keyExtractor={(item = item.id)}
+          keyExtractor={item => item.id}
         />
       </View>
     );
@@ -56,13 +91,18 @@ class List extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#001',
   },
 
   items: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 16,
+    // flexDirection: 'row',
+    justifyContent: 'center',
+    height: 150,
+    marginLeft: 40,
     marginTop: 8,
+    marginRight: 40,
+    borderRadius: 15,
+    backgroundColor: '#252632',
   },
 });
 
