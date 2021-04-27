@@ -8,6 +8,8 @@ import {
   Image,
 } from 'react-native';
 
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 const IMAGE_URI = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
 const MovieData = ({data, onpress}) => {
@@ -38,9 +40,12 @@ const MovieData = ({data, onpress}) => {
             <Text style={{color: '#fff', fontSize: 18}}>{data.title}</Text>
           </View>
           <View>
-            <Text style={{color: 'gold', fontWeight: 'bold'}}>
-              {data.vote_average}
-            </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <AntDesign name="star" color="gold" size={15} />
+              <Text style={{color: 'gold', fontWeight: 'bold', marginLeft: 5}}>
+                {data.vote_average}
+              </Text>
+            </View>
             {/* <Text style={{color: '#fff'}}>director</Text> */}
 
             <Text style={{color: '#fff'}}>{data.original_language}</Text>

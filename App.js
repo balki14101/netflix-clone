@@ -7,6 +7,7 @@ import Details from './Screens/Details';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {Image} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +28,17 @@ const App = () => {
               headerStyle: {backgroundColor: '#000'},
             }}
           />
-          <Stack.Screen name="Details" component={Details} />
+          <Stack.Screen
+            name="Details"
+            component={Details}
+            options={{
+              title: ' ',
+              headerTintColor: '#808080',
+              headerStyle: {
+                backgroundColor: '#252632',
+              },
+            }}
+          />
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
