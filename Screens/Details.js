@@ -16,12 +16,16 @@ const BACKDROP_URL = 'https://www.themoviedb.org/t/p/original';
 const Movies = props => {
   const data = props.name;
   return (
-    <View style={{flexDirection: 'row'}}>
-      <Image
-        source={{uri: BACKDROP_URL + data.poster_path}}
-        style={{height: 100, width: 50}}
-      />
-      <Text style={{color: '#fff', marginLeft: 10}}>{data.title}</Text>
+    <View style={{alignItems: 'center'}}>
+      <View style={{marginLeft: 10}}>
+        <Image
+          source={{uri: BACKDROP_URL + data.poster_path}}
+          style={{height: 150, width: 100, borderRadius: 8}}
+        />
+      </View>
+      <View>
+        <Text style={{color: '#fff', marginLeft: 10}}>{data.title}</Text>
+      </View>
     </View>
   );
 };
@@ -129,9 +133,13 @@ class Details extends React.Component {
               {details.overview}
             </Text>
           </View>
-          <View>
-            <Text style={{color: '#fff'}}>SIMILAR MOVIES</Text>
-            <Text>{similarData.results.map(this.renderSimilarMovies)}</Text>
+          <View style={{marginTop: 20}}>
+            <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
+              Similar Movies
+            </Text>
+            <ScrollView horizontal style={{marginTop: 20}}>
+              <Text>{similarData.results.map(this.renderSimilarMovies)}</Text>
+            </ScrollView>
           </View>
         </View>
       </ScrollView>
