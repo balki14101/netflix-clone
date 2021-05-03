@@ -29,7 +29,6 @@ const MovieData = ({data, onpress}) => {
             width: 90,
             marginLeft: 5,
             borderRadius: 5,
-            alignContent: 'center',
           }}
         />
         <View
