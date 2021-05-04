@@ -17,7 +17,7 @@ const MovieData = props => {
   const {index, item} = data;
   const {poster_path, id, title, original_language, vote_average} = item;
   const uri = IMAGE_URI + poster_path;
-
+  // sample comment here
   return (
     <TouchableOpacity
       onPress={() => {
