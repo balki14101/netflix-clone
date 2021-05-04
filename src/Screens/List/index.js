@@ -12,18 +12,21 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const IMAGE_URI = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
-const MovieData = ({data, onpress}) => {
-  const uri = IMAGE_URI + data.poster_path;
+const MovieData = props => {
+  const {data, onCardPress} = props;
+  const {index, item} = data;
+  const {poster_path, id, title, original_language, vote_average} = item;
+  const uri = IMAGE_URI + poster_path;
 
   return (
     <TouchableOpacity
       onPress={() => {
-        onpress(data.id);
+        onCardPress(id);
       }}
       style={styles.items}>
       <View style={{flexDirection: 'row'}}>
         <Image
-          source={{uri: uri}}
+          source={{uri}}
           style={{
             height: 140,
             width: 90,
@@ -37,18 +40,18 @@ const MovieData = ({data, onpress}) => {
             justifyContent: 'space-evenly',
           }}>
           <View style={{marginRight: 95}}>
-            <Text style={{color: '#fff', fontSize: 18}}>{data.title}</Text>
+            <Text style={{color: '#fff', fontSize: 18}}>{`${
+              index + 1
+            }.${title}`}</Text>
           </View>
           <View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <AntDesign name="star" color="gold" size={15} />
               <Text style={{color: 'gold', fontWeight: 'bold', marginLeft: 5}}>
-                {data.vote_average}
+                {vote_average}
               </Text>
             </View>
-            {/* <Text style={{color: '#fff'}}>director</Text> */}
-
-            <Text style={{color: '#fff'}}>{data.original_language}</Text>
+            <Text style={{color: '#fff'}}>{original_language}</Text>
           </View>
         </View>
       </View>
@@ -72,14 +75,17 @@ class List extends React.Component {
       });
   };
 
-  gotodetailsscreen = MovieId => {
+  navigateToDetailsScreen = MovieId => {
     this.props.navigation.navigate('Details', {MovieId});
   };
 
-  renderMovieItem = item => {
-    // console.log('this is item', item.item);
-    return <MovieData data={item.item} onpress={this.gotodetailsscreen} />;
-  };
+  renderMovieItem = props => (
+    <MovieData
+      key={props.index}
+      data={props}
+      onCardPress={this.navigateToDetailsScreen}
+    />
+  );
   render() {
     // console.log(this.state.list);
     return (

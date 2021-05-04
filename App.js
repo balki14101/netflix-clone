@@ -68,7 +68,6 @@ const App = () => {
             component={stackScreen}
             options={{
               title: ' Home',
-              headerTintColor: 'black',
               tabBarBadge: 9,
               tabBarIcon: ({color}) => (
                 <MaterialIcons name="home" color={color} size={20} />

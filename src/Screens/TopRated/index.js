@@ -1,21 +1,35 @@
 import React from 'react';
-import {Text, View, ActivityIndicator, FlatList, Image} from 'react-native';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  FlatList,
+  Image,
+  ImageBackground,
+} from 'react-native';
 import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 
 const BACKDROP_URL = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
+const NEW_LINK = 'https://themoviedb.org/t/p/w500_and_h282_face';
 
 const Movies = ({data}) => {
+  const backGroundImage = NEW_LINK + data.backdrop_path;
   const image = BACKDROP_URL + data.poster_path;
+
   return (
     <View style={{flex: 1}}>
-      <Image
-        source={{uri: image}}
-        style={{height: 200}}
-        resizeMode={'contain'}
-      />
-      <View>
-        <Text>{data.title}</Text>
-      </View>
+      <ImageBackground
+        source={{uri: backGroundImage}}
+        style={{height: 200, width: 400}}
+        blurRadius={1}>
+        <View>
+          <Image source={{uri: image}} style={{width: 100, height: 150}} />
+        </View>
+        <View>
+          <Text>{data.title}</Text>
+          <Text>{data.vote_average}</Text>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
