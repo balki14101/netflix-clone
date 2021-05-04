@@ -48,7 +48,7 @@ class Details extends React.Component {
       )
         .then(response => response.json())
         .then(json => {
-          console.log({Response: json});
+          // console.log({Response: json});
           this.setState({details: json});
         });
 
@@ -57,7 +57,7 @@ class Details extends React.Component {
       )
         .then(response => response.json())
         .then(json => {
-          console.log({Response: json});
+          // console.log({Response: json});
 
           this.setState({crewData: json});
         });
@@ -66,7 +66,7 @@ class Details extends React.Component {
       )
         .then(response => response.json())
         .then(json => {
-          console.log({response: json});
+          // console.log({response: json});
 
           this.setState({similarData: json});
         });
@@ -78,7 +78,7 @@ class Details extends React.Component {
   };
 
   render() {
-    console.log('this is details', this.state.details);
+    // console.log('this is details', this.state.details);
     const details = this.state.details;
     const crewData = this.state.crewData;
     const similarData = this.state.similarData;

@@ -1,24 +1,25 @@
+// library imports
 import React from 'react';
-
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-
-import List from './Screens/List';
-import Details from './Screens/Details';
-import Screen1 from './Screens/Screen1';
-
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {Image} from 'react-native';
-import color from 'color';
+
+// screens imports
+import List from './src/Screens/List';
+import Details from './src/Screens/Details';
+import TopRated from './src/Screens/TopRated';
+
+// icons
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
+/**
+ * @function stackScreen
+ * @description this is the stack screen container
+ */
 stackScreen = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -49,6 +50,11 @@ stackScreen = () => {
   );
 };
 
+/**
+ * @function App
+ * @description This is the starting point of A;pp
+ * @returns {JSX}
+ */
 const App = () => {
   return (
     <NavigationContainer>
@@ -61,7 +67,8 @@ const App = () => {
             name="Home"
             component={stackScreen}
             options={{
-              title: ' sdf',
+              title: ' Home',
+              headerTintColor: 'black',
               tabBarBadge: 9,
               tabBarIcon: ({color}) => (
                 <MaterialIcons name="home" color={color} size={20} />
@@ -69,8 +76,8 @@ const App = () => {
             }}
           />
           <Tab.Screen
-            name="Settings"
-            component={Screen1}
+            name="TopRated"
+            component={TopRated}
             options={{
               tabBarBadge: 5,
               tabBarIcon: ({color}) => (

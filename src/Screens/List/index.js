@@ -58,7 +58,7 @@ const MovieData = ({data, onpress}) => {
 
 class List extends React.Component {
   state = {
-    list: [],
+    list: null,
   };
 
   componentDidMount = () => {
@@ -67,7 +67,7 @@ class List extends React.Component {
     )
       .then(response => response.json())
       .then(json => {
-        console.log({RESPONSE: json});
+        // console.log({RESPONSE: json});
         this.setState({list: json.results});
       });
   };
@@ -77,11 +77,11 @@ class List extends React.Component {
   };
 
   renderMovieItem = item => {
-    console.log('this is item', item.item);
+    // console.log('this is item', item.item);
     return <MovieData data={item.item} onpress={this.gotodetailsscreen} />;
   };
   render() {
-    console.log(this.state.list);
+    // console.log(this.state.list);
     return (
       <View style={styles.container}>
         <FlatList
