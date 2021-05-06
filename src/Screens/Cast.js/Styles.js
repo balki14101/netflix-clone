@@ -27,6 +27,9 @@ const styles = (StyleSheet.Create = {
     fontFamily: 'sans-serif',
     color: '#787982',
   },
+  viewMoreText: {
+    color: '#787982',
+  },
 });
 
 export default styles;

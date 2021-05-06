@@ -40,6 +40,7 @@ const MovieData = props => {
             justifyContent: 'space-evenly',
           }}>
           <View style={{marginRight: 95}}>
+            {/* margin doubt right here */}
             <Text style={{color: '#fff', fontSize: 18}}>{`${
               index + 1
             }.${title}`}</Text>
@@ -63,6 +64,7 @@ class List extends React.Component {
   state = {
     list: null,
   };
+  
 
   componentDidMount = () => {
     fetch(

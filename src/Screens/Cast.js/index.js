@@ -28,14 +28,19 @@ class Cast extends React.Component {
   };
 
   renderViewMore = press => {
-    <Text style={{color: 'blue', fontSize: 20}} onPress={press}>
-      View More
-    </Text>;
+    return (
+      <Text style={styles.viewMoreText} onPress={press}>
+        View More
+      </Text>
+    );
   };
   renderViewLess = press => {
-    <Text style={{color: 'blue', fontSize: 20}} onPress={press}>
-      Less
-    </Text>;
+    return (
+      <Text style={styles.viewMoreText} onPress={press}>
+        {' '}
+        View Less
+      </Text>
+    );
   };
 
   render() {
