@@ -12,6 +12,7 @@ import TopRated from './src/Screens/TopRated';
 
 // icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Cast from './src/Screens/Cast.js';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -40,6 +41,16 @@ stackScreen = () => {
         component={Details}
         options={{
           title: ' ',
+          headerTintColor: '#808080',
+          headerStyle: {
+            backgroundColor: '#252632',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Cast"
+        component={Cast}
+        options={{
           headerTintColor: '#808080',
           headerStyle: {
             backgroundColor: '#252632',

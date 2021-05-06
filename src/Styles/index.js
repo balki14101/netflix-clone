@@ -11,7 +11,7 @@ const globalStyles = StyleSheet.create({
 
 const colors = {
   blue: 'blue',
-  bgBlack: 'rgba(0,0,0,0.8)',
+  bgBlack: 'rgba(0,0,0,0.7)',
 };
 
 const iconSize = {

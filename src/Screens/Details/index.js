@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground} from 'react-native';
+import {ImageBackground, TouchableOpacity} from 'react-native';
 import {
   StyleSheet,
   View,
@@ -8,8 +8,11 @@ import {
   ActivityIndicator,
   ScrollView,
 } from 'react-native';
+import {Button} from 'react-native-elements/dist/buttons/Button';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {colors} from '../../Styles';
 
 const BACKDROP_URL = 'https://www.themoviedb.org/t/p/original';
 
@@ -31,17 +34,40 @@ const Movies = props => {
 };
 
 const Cast = props => {
-  const {data} = props;
+  const {data, onCastPress} = props;
   const image = BACKDROP_URL + data.profile_path;
 
   return (
-    <View style={{alignItems: 'center'}}>
-      <Image
-        source={{uri: image}}
-        style={{height: 150, width: 100, borderRadius: 8, marginLeft: 10}}
-      />
-      <Text style={{color: '#fff', marginLeft: 10}}>{data.name}</Text>
-    </View>
+    <TouchableOpacity
+      onPress={() => {
+        onCastPress(data.id);
+      }}>
+      <View
+        style={{
+          backgroundColor: '#edebeb',
+          borderRadius: 8,
+          margin: 5,
+        }}>
+        {/* image margin doubt right
+          
+          
+          
+          
+          here */}
+        <View
+          style={{
+            margin: 5,
+
+            alignItems: 'center',
+          }}>
+          <Image
+            source={{uri: image}}
+            style={{height: 150, width: 100, borderRadius: 8}}
+          />
+          <Text style={{color: '#000'}}>{data.name}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -93,9 +119,11 @@ class Details extends React.Component {
   };
 
   renderCastDetails = item => {
-    console.log('---------------------------------------------', item);
+    return <Cast data={item} onCastPress={this.gotoCast} />;
+  };
 
-    return <Cast data={item} />;
+  gotoCast = castId => {
+    this.props.navigation.navigate('Cast', {castId});
   };
 
   render() {
@@ -121,15 +149,22 @@ class Details extends React.Component {
         <ImageBackground
           source={{uri: backdrop}}
           style={{height: 200, justifyContent: 'flex-end'}}>
-          <Text
+          <View
             style={{
-              color: '#fff',
-              fontSize: 40,
-              fontWeight: 'bold',
-              marginLeft: 20,
+              backgroundColor: colors.bgBlack,
+              height: 200,
+              justifyContent: 'flex-end',
             }}>
-            {title}
-          </Text>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 40,
+                fontWeight: 'bold',
+                marginLeft: 20,
+              }}>
+              {title}
+            </Text>
+          </View>
         </ImageBackground>
         <View style={{marginLeft: 20, marginRight: 20}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -155,16 +190,16 @@ class Details extends React.Component {
               {details.overview}
             </Text>
           </View>
-          <ScrollView horizontal={true}>
-            <View style={{marginTop: 10}}>
-              <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
-                Cast
-              </Text>
+          <View style={{marginTop: 10}}>
+            <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
+              Cast
+            </Text>
+            <ScrollView horizontal={true}>
               <Text style={{marginTop: 10}}>
                 {crewData.cast.map(this.renderCastDetails)}
               </Text>
-            </View>
-          </ScrollView>
+            </ScrollView>
+          </View>
           <View style={{marginTop: 20}}>
             <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
               Similar Movies

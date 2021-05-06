@@ -45,7 +45,7 @@ const Movies = ({data}) => {
                 fontWeight: 'bold',
                 fontSize: 20,
                 /**doubt right here
-                 *
+                 *title margin
                  *
                  *
                  *
