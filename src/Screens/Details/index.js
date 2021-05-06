@@ -30,6 +30,21 @@ const Movies = props => {
   );
 };
 
+const Cast = props => {
+  const {data} = props;
+  const image = BACKDROP_URL + data.profile_path;
+
+  return (
+    <View style={{alignItems: 'center'}}>
+      <Image
+        source={{uri: image}}
+        style={{height: 150, width: 100, borderRadius: 8, marginLeft: 10}}
+      />
+      <Text style={{color: '#fff', marginLeft: 10}}>{data.name}</Text>
+    </View>
+  );
+};
+
 class Details extends React.Component {
   constructor(props) {
     super(props);
@@ -77,6 +92,12 @@ class Details extends React.Component {
     return <Movies name={item} />;
   };
 
+  renderCastDetails = item => {
+    console.log('---------------------------------------------', item);
+
+    return <Cast data={item} />;
+  };
+
   render() {
     // console.log('this is details', this.state.details);
     const details = this.state.details;
@@ -115,12 +136,13 @@ class Details extends React.Component {
             <AntDesign name="star" size={20} color="gold" />
             <Text style={{color: 'gold', marginLeft: 5}}>{rating}</Text>
           </View>
+
           <View>
-            {/* <Text>{crewData.crew.map(item => item.name)}</Text> */}
             <Text style={{color: '#fff', marginTop: 5}}>
               {details.genres.map(item => item.name).join('*')}
             </Text>
           </View>
+
           <View>
             <Text
               numberOfLines={6}
@@ -133,6 +155,16 @@ class Details extends React.Component {
               {details.overview}
             </Text>
           </View>
+          <ScrollView horizontal={true}>
+            <View style={{marginTop: 10}}>
+              <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
+                Cast
+              </Text>
+              <Text style={{marginTop: 10}}>
+                {crewData.cast.map(this.renderCastDetails)}
+              </Text>
+            </View>
+          </ScrollView>
           <View style={{marginTop: 20}}>
             <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
               Similar Movies
