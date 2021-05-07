@@ -17,7 +17,7 @@ const MovieData = props => {
   const {index, item} = data;
   const {poster_path, id, title, original_language, vote_average} = item;
   const uri = IMAGE_URI + poster_path;
-
+  // sample comment here
   return (
     <TouchableOpacity
       onPress={() => {
@@ -40,6 +40,7 @@ const MovieData = props => {
             justifyContent: 'space-evenly',
           }}>
           <View style={{marginRight: 95}}>
+            {/* margin doubt right here */}
             <Text style={{color: '#fff', fontSize: 18}}>{`${
               index + 1
             }.${title}`}</Text>
@@ -63,6 +64,7 @@ class List extends React.Component {
   state = {
     list: null,
   };
+  
 
   componentDidMount = () => {
     fetch(

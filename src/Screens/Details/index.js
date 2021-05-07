@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground} from 'react-native';
+import {ImageBackground, TouchableOpacity} from 'react-native';
 import {
   StyleSheet,
   View,
@@ -8,8 +8,11 @@ import {
   ActivityIndicator,
   ScrollView,
 } from 'react-native';
+import {Button} from 'react-native-elements/dist/buttons/Button';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {colors} from '../../Styles';
 
 const BACKDROP_URL = 'https://www.themoviedb.org/t/p/original';
 
@@ -27,6 +30,44 @@ const Movies = props => {
         <Text style={{color: '#fff', marginLeft: 10}}>{data.title}</Text>
       </View>
     </View>
+  );
+};
+
+const Cast = props => {
+  const {data, onCastPress} = props;
+  const image = BACKDROP_URL + data.profile_path;
+
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        onCastPress(data.id);
+      }}>
+      <View
+        style={{
+          backgroundColor: '#edebeb',
+          borderRadius: 8,
+          margin: 5,
+        }}>
+        {/* image margin doubt right
+          
+          
+          
+          
+          here */}
+        <View
+          style={{
+            margin: 5,
+
+            alignItems: 'center',
+          }}>
+          <Image
+            source={{uri: image}}
+            style={{height: 150, width: 100, borderRadius: 8}}
+          />
+          <Text style={{color: '#000'}}>{data.name}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -77,6 +118,14 @@ class Details extends React.Component {
     return <Movies name={item} />;
   };
 
+  renderCastDetails = item => {
+    return <Cast data={item} onCastPress={this.gotoCast} />;
+  };
+
+  gotoCast = castId => {
+    this.props.navigation.navigate('Cast', {castId});
+  };
+
   render() {
     // console.log('this is details', this.state.details);
     const details = this.state.details;
@@ -100,27 +149,35 @@ class Details extends React.Component {
         <ImageBackground
           source={{uri: backdrop}}
           style={{height: 200, justifyContent: 'flex-end'}}>
-          <Text
+          <View
             style={{
-              color: '#fff',
-              fontSize: 40,
-              fontWeight: 'bold',
-              marginLeft: 20,
+              backgroundColor: colors.bgBlack,
+              height: 200,
+              justifyContent: 'flex-end',
             }}>
-            {title}
-          </Text>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 40,
+                fontWeight: 'bold',
+                marginLeft: 20,
+              }}>
+              {title}
+            </Text>
+          </View>
         </ImageBackground>
         <View style={{marginLeft: 20, marginRight: 20}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <AntDesign name="star" size={20} color="gold" />
             <Text style={{color: 'gold', marginLeft: 5}}>{rating}</Text>
           </View>
+
           <View>
-            {/* <Text>{crewData.crew.map(item => item.name)}</Text> */}
             <Text style={{color: '#fff', marginTop: 5}}>
               {details.genres.map(item => item.name).join('*')}
             </Text>
           </View>
+
           <View>
             <Text
               numberOfLines={6}
@@ -132,6 +189,16 @@ class Details extends React.Component {
               }}>
               {details.overview}
             </Text>
+          </View>
+          <View style={{marginTop: 10}}>
+            <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
+              Cast
+            </Text>
+            <ScrollView horizontal={true}>
+              <Text style={{marginTop: 10}}>
+                {crewData.cast.map(this.renderCastDetails)}
+              </Text>
+            </ScrollView>
           </View>
           <View style={{marginTop: 20}}>
             <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>

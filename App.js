@@ -12,6 +12,9 @@ import TopRated from './src/Screens/TopRated';
 
 // icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import Cast from './src/Screens/Cast.js';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -46,6 +49,16 @@ stackScreen = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="Cast"
+        component={Cast}
+        options={{
+          headerTintColor: '#808080',
+          headerStyle: {
+            backgroundColor: '#252632',
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -68,7 +81,6 @@ const App = () => {
             component={stackScreen}
             options={{
               title: ' Home',
-              tabBarBadge: 9,
               tabBarIcon: ({color}) => (
                 <MaterialIcons name="home" color={color} size={20} />
               ),
@@ -78,9 +90,12 @@ const App = () => {
             name="TopRated"
             component={TopRated}
             options={{
-              tabBarBadge: 5,
               tabBarIcon: ({color}) => (
-                <MaterialIcons name="settings" color={color} size={20} />
+                <MaterialCommunityIcons
+                  name="certificate"
+                  color={color}
+                  size={20}
+                />
               ),
             }}
           />
