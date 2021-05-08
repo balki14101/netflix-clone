@@ -14,7 +14,9 @@ import TopRated from './src/Screens/TopRated';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Cast from './src/Screens/Cast.js';
+import Cast from './src/Screens/Cast/index.js';
+import colors from './src/Styles/index';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -73,8 +75,8 @@ const App = () => {
     <NavigationContainer>
       <SafeAreaView style={styles.container}>
         <Tab.Navigator
-          activeColor="#e8e8e8"
-          inactiveColor="#252632"
+          activeColor={colors.white}
+          inactiveColor={colors.tabBarInActive}
           barStyle={{backgroundColor: '#001'}}>
           <Tab.Screen
             name="Home"

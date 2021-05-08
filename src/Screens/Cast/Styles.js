@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../../Styles';
 
 const styles = (StyleSheet.Create = {
   container: {
     flex: 1,
-    backgroundColor: '#252632',
+    backgroundColor: colors.cardBg,
   },
   marginLeft: {
     marginLeft: 10,
@@ -12,23 +13,23 @@ const styles = (StyleSheet.Create = {
     alignItems: 'center',
   },
   info: {
-    color: '#fff',
+    color: colors.white,
     fontWeight: 'bold',
     fontSize: 25,
     fontFamily: 'sans-serif',
   },
   headerText: {
     fontFamily: 'sans-serif-medium',
-    color: '#fff',
+    color: colors.white,
     fontSize: 15,
     marginTop: 10,
   },
   text: {
     fontFamily: 'sans-serif',
-    color: '#787982',
+    color: colors.overview,
   },
   viewMoreText: {
-    color: '#787982',
+    color: colors.overview,
   },
 });
 
