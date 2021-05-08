@@ -12,6 +12,7 @@ import {colors} from '../../Styles';
 // constants
 import {url} from '../../Constants';
 import styles from './Styles';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 // destructuring
 const {posterPath, backdropPath} = url;
@@ -23,46 +24,18 @@ const Movies = ({data}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={{uri: backGroundImage}} style={styles.bgImage}>
-        <View
-          style={{
-            backgroundColor: colors.bgBlack,
-            height: 200,
-            flexDirection: 'row',
-          }}>
-          <Image
-            source={{uri: image}}
-            style={{width: 100, height: 150, margin: 30}}
-          />
-          <View
-            style={{
-              marginTop: 30,
-              // marginRight: 30,
-              alignSelf: 'center',
-            }}>
-            <Text
-              style={{
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: 20,
-                /**doubt right here
-                 *title margin
-                 *
-                 *
-                 *
-                 */
-                marginRight: 250,
-              }}>
+        <View style={styles.mainView}>
+          <Image source={{uri: image}} style={styles.posterImage} />
+          <View style={styles.detailsView}>
+            <Text style={styles.title}>
+              {/**doubt right here
+               *title margin */}
+
               {data.title}
             </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <MaterialIcons name="star" size={30} color="gold" />
-              <Text style={{color: '#fff', fontSize: 30}}>
-                {data.vote_average}
-              </Text>
+            <View style={styles.ratingView}>
+              <MaterialIcons name="star" size={30} color={colors.gold} />
+              <Text style={styles.rating}>{data.vote_average}</Text>
             </View>
           </View>
         </View>

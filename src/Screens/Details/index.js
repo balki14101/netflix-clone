@@ -8,26 +8,26 @@ import {
   ActivityIndicator,
   ScrollView,
 } from 'react-native';
-import {Button} from 'react-native-elements/dist/buttons/Button';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {colors} from '../../Styles';
+import {url} from '../../Constants/index';
+import styles from './Styles';
 
-const BACKDROP_URL = 'https://www.themoviedb.org/t/p/original';
+const {imagePathDetailsScreen} = url;
 
 const Movies = props => {
   const data = props.name;
   return (
-    <View style={{alignItems: 'center'}}>
-      <View style={{marginLeft: 10}}>
+    <View style={styles.center}>
+      <View style={styles.top10}>
         <Image
-          source={{uri: BACKDROP_URL + data.poster_path}}
-          style={{height: 150, width: 100, borderRadius: 8}}
+          source={{uri: imagePathDetailsScreen + data.poster_path}}
+          style={styles.movieImage}
         />
       </View>
       <View>
-        <Text style={{color: '#fff', marginLeft: 10}}>{data.title}</Text>
+        <Text style={styles.movieTitle}>{data.title}</Text>
       </View>
     </View>
   );
@@ -35,41 +35,57 @@ const Movies = props => {
 
 const Cast = props => {
   const {data, onCastPress} = props;
-  const image = BACKDROP_URL + data.profile_path;
+  const image = imagePathDetailsScreen + data.profile_path;
 
   return (
     <TouchableOpacity
       onPress={() => {
         onCastPress(data.id);
       }}>
-      <View
-        style={{
-          backgroundColor: '#edebeb',
-          borderRadius: 8,
-          margin: 5,
-        }}>
+      <View style={styles.castView}>
         {/* image margin doubt right
           
           
           
           
           here */}
-        <View
-          style={{
-            margin: 5,
-
-            alignItems: 'center',
-          }}>
-          <Image
-            source={{uri: image}}
-            style={{height: 150, width: 100, borderRadius: 8}}
-          />
-          <Text style={{color: '#000'}}>{data.name}</Text>
+        <View style={styles.insideCastView}>
+          <Image source={{uri: image}} style={styles.castImage} />
+          <Text style={styles.textColor}>{data.name}</Text>
+          <Text style={styles.textColor}>{data.character}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
+
+// const Crew = props => {
+//   const data = props.data;
+//   const image = BACKDROP_URL + data.profile_path;
+
+//   return (
+//     <View
+//       style={{
+//         backgroundColor: '#edebeb',
+//         borderRadius: 8,
+//         margin: 5,
+//       }}>
+//       <View
+//         style={{
+//           margin: 5,
+//           alignItems: 'center',
+//         }}>
+//         <Image
+//           source={{uri: image}}
+//           style={{height: 150, width: 100, borderRadius: 8}}
+//         />
+//         <Text style={{color: '#000'}}>{data.name}</Text>
+//         <Text style={{color: '#000'}}>{data.department}</Text>
+//         <Text style={{color: '#000'}}>{data.job}</Text>
+//       </View>
+//     </View>
+//   );
+// };
 
 class Details extends React.Component {
   constructor(props) {
@@ -114,17 +130,21 @@ class Details extends React.Component {
     }
   };
 
-  renderSimilarMovies = item => {
-    return <Movies name={item} />;
+  renderSimilarMovies = (item, index) => {
+    return <Movies name={item} key={index} />;
   };
 
-  renderCastDetails = item => {
-    return <Cast data={item} onCastPress={this.gotoCast} />;
+  renderCastDetails = (item, index) => {
+    return <Cast data={item} onCastPress={this.gotoCast} key={index} />;
   };
 
   gotoCast = castId => {
     this.props.navigation.navigate('Cast', {castId});
   };
+
+  // renderCrewDetails = item => {
+  //   return <Crew data={item} />;
+  // };
 
   render() {
     // console.log('this is details', this.state.details);
@@ -132,7 +152,9 @@ class Details extends React.Component {
     const crewData = this.state.crewData;
     const similarData = this.state.similarData;
 
-    const backdrop = details ? BACKDROP_URL + details.backdrop_path : '---';
+    const backdrop = details
+      ? imagePathDetailsScreen + details.backdrop_path
+      : '---';
     const title = details ? details.original_title : '---';
     const rating = details ? details.vote_average : '----';
     // const name = similarData ? similarData.title : '---;';
@@ -148,63 +170,45 @@ class Details extends React.Component {
       <ScrollView style={styles.container}>
         <ImageBackground
           source={{uri: backdrop}}
-          style={{height: 200, justifyContent: 'flex-end'}}>
-          <View
-            style={{
-              backgroundColor: colors.bgBlack,
-              height: 200,
-              justifyContent: 'flex-end',
-            }}>
-            <Text
-              style={{
-                color: '#fff',
-                fontSize: 40,
-                fontWeight: 'bold',
-                marginLeft: 20,
-              }}>
-              {title}
-            </Text>
+          style={styles.imageBackGround}>
+          <View style={styles.titleView}>
+            <Text style={styles.title}>{title}</Text>
           </View>
         </ImageBackground>
-        <View style={{marginLeft: 20, marginRight: 20}}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <AntDesign name="star" size={20} color="gold" />
-            <Text style={{color: 'gold', marginLeft: 5}}>{rating}</Text>
+        <View style={styles.view}>
+          <View style={styles.ratingView}>
+            <AntDesign name="star" size={20} color={colors.gold} />
+            <Text style={styles.rating}>{rating}</Text>
           </View>
 
           <View>
-            <Text style={{color: '#fff', marginTop: 5}}>
+            <Text style={styles.genreView}>
               {details.genres.map(item => item.name).join('*')}
             </Text>
           </View>
 
           <View>
-            <Text
-              numberOfLines={6}
-              style={{
-                color: '#787982',
-                marginTop: 10,
-                fontSize: 12,
-                lineHeight: 20,
-              }}>
+            <Text numberOfLines={6} style={styles.overview}>
               {details.overview}
             </Text>
           </View>
-          <View style={{marginTop: 10}}>
-            <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
-              Cast
-            </Text>
+          <View style={styles.top10}>
+            <Text style={styles.header}>Cast</Text>
             <ScrollView horizontal={true}>
-              <Text style={{marginTop: 10}}>
+              <Text style={styles.top10}>
                 {crewData.cast.map(this.renderCastDetails)}
               </Text>
             </ScrollView>
           </View>
-          <View style={{marginTop: 20}}>
-            <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
-              Similar Movies
-            </Text>
-            <ScrollView horizontal style={{marginTop: 20}}>
+          <View>
+            <Text style={styles.header}>Crew</Text>
+            <ScrollView horizontal={true}>
+              {/* <Text>{crewData.crew.map(this.renderCrewDetails)}</Text> */}
+            </ScrollView>
+          </View>
+          <View style={styles.top20}>
+            <Text style={styles.header}>Similar Movies</Text>
+            <ScrollView horizontal style={styles.top20}>
               <Text>{similarData.results.map(this.renderSimilarMovies)}</Text>
             </ScrollView>
           </View>
@@ -213,12 +217,5 @@ class Details extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#252632',
-  },
-});
 
 export default Details;

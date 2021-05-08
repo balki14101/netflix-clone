@@ -9,14 +9,17 @@ import {
 } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {url} from '../../Constants/index';
+import styles from './Styles';
+import {colors} from '../../Styles/index';
 
-const IMAGE_URI = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
+const {posterPath} = url;
 
 const MovieData = props => {
   const {data, onCardPress} = props;
   const {index, item} = data;
   const {poster_path, id, title, original_language, vote_average} = item;
-  const uri = IMAGE_URI + poster_path;
+  const uri = posterPath + poster_path;
   // sample comment here
   return (
     <TouchableOpacity
@@ -24,35 +27,19 @@ const MovieData = props => {
         onCardPress(id);
       }}
       style={styles.items}>
-      <View style={{flexDirection: 'row'}}>
-        <Image
-          source={{uri}}
-          style={{
-            height: 140,
-            width: 90,
-            marginLeft: 5,
-            borderRadius: 5,
-          }}
-        />
-        <View
-          style={{
-            marginLeft: 10,
-            justifyContent: 'space-evenly',
-          }}>
+      <View style={styles.row}>
+        <Image source={{uri}} style={styles.image} />
+        <View style={styles.detailsView}>
           <View style={{marginRight: 95}}>
             {/* margin doubt right here */}
-            <Text style={{color: '#fff', fontSize: 18}}>{`${
-              index + 1
-            }.${title}`}</Text>
+            <Text style={styles.title}>{`${index + 1}.${title}`}</Text>
           </View>
           <View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <AntDesign name="star" color="gold" size={15} />
-              <Text style={{color: 'gold', fontWeight: 'bold', marginLeft: 5}}>
-                {vote_average}
-              </Text>
+            <View style={styles.ratingView}>
+              <AntDesign name="star" color={colors.gold} size={15} />
+              <Text style={styles.voteAverage}>{vote_average}</Text>
             </View>
-            <Text style={{color: '#fff'}}>{original_language}</Text>
+            <Text style={styles.white}>{original_language}</Text>
           </View>
         </View>
       </View>
@@ -64,7 +51,6 @@ class List extends React.Component {
   state = {
     list: null,
   };
-  
 
   componentDidMount = () => {
     fetch(
@@ -101,22 +87,5 @@ class List extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#001',
-  },
-
-  items: {
-    // flexDirection: 'row',
-    justifyContent: 'center',
-    height: 150,
-    marginLeft: 40,
-    marginTop: 8,
-    marginRight: 40,
-    borderRadius: 15,
-    backgroundColor: '#252632',
-  },
-});
 
 export default List;
