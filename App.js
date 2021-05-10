@@ -8,15 +8,15 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 // screens imports
 import List from './src/Screens/List';
 import Details from './src/Screens/Details';
+import Cast from './src/Screens/Cast/index.js';
 import TopRated from './src/Screens/TopRated';
+import TopRatedMovieDetails from './src/Screens/TopRated/TopRatedMovieDetails';
 
 // icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Cast from './src/Screens/Cast/index.js';
 import colors from './src/Styles/index';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -66,6 +66,39 @@ stackScreen = () => {
 };
 
 /**
+ *
+ * @returns this is TopRatedTabScreens
+ */
+TopRatedScreens = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TopRated"
+        component={TopRated}
+        options={{
+          title: 'TopRated Movies ',
+          headerTintColor: '#808080',
+          headerStyle: {
+            backgroundColor: '#252632',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="TopRatedMovieDetails"
+        component={TopRatedMovieDetails}
+        options={{
+          title: 'TopRated Movies Details ',
+          headerTintColor: '#808080',
+          headerStyle: {
+            backgroundColor: '#252632',
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+/**
  * @function App
  * @description This is the starting point of A;pp
  * @returns {JSX}
@@ -90,7 +123,7 @@ const App = () => {
           />
           <Tab.Screen
             name="TopRated"
-            component={TopRated}
+            component={TopRatedScreens}
             options={{
               tabBarIcon: ({color}) => (
                 <MaterialCommunityIcons
