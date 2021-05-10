@@ -30,9 +30,10 @@ const MovieData = props => {
       <View style={styles.row}>
         <Image source={{uri}} style={styles.image} />
         <View style={styles.detailsView}>
-          <View style={{marginRight: 95}}>
+          <View style={{marginRight: 120, flexDirection: 'row'}}>
             {/* margin doubt right here */}
-            <Text style={styles.title}>{`${index + 1}.${title}`}</Text>
+            <Text style={styles.title}>{`${index + 1}.`}</Text>
+            <Text style={styles.title}>{title}</Text>
           </View>
           <View>
             <View style={styles.ratingView}>

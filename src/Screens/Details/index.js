@@ -61,15 +61,10 @@ const Cast = props => {
 
 // const Crew = props => {
 //   const data = props.data;
-//   const image = BACKDROP_URL + data.profile_path;
+//   const image = imagePathDetailsScreen + data.profile_path;
 
 //   return (
-//     <View
-//       style={{
-//         backgroundColor: '#edebeb',
-//         borderRadius: 8,
-//         margin: 5,
-//       }}>
+//     <View style={styles.castView}>
 //       <View
 //         style={{
 //           margin: 5,
@@ -201,14 +196,14 @@ class Details extends React.Component {
             </ScrollView>
           </View>
           <View>
-            <Text style={styles.header}>Crew</Text>
-            <ScrollView horizontal={true}>
-              {/* <Text>{crewData.crew.map(this.renderCrewDetails)}</Text> */}
-            </ScrollView>
+            {/* <Text style={styles.header}>Crew</Text> */}
+            {/* <ScrollView horizontal={true}>
+              <Text>{crewData.crew.map(this.renderCrewDetails)}</Text>
+            </ScrollView> */}
           </View>
           <View style={styles.top20}>
             <Text style={styles.header}>Similar Movies</Text>
-            <ScrollView horizontal style={styles.top20}>
+            <ScrollView horizontal style={styles.top10}>
               <Text>{similarData.results.map(this.renderSimilarMovies)}</Text>
             </ScrollView>
           </View>

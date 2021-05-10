@@ -1,6 +1,13 @@
 // library imports
 import React from 'react';
-import {Text, View, FlatList, Image, ImageBackground} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 
 // UI components
 import Loader from '../../Components/Loader';
@@ -12,35 +19,39 @@ import {colors} from '../../Styles';
 // constants
 import {url} from '../../Constants';
 import styles from './Styles';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 // destructuring
 const {posterPath, backdropPath} = url;
 
-const Movies = ({data}) => {
+const Movies = ({data, onMoviePress}) => {
   const backGroundImage = backdropPath + data.backdrop_path;
   const image = posterPath + data.poster_path;
-
+  const {id} = data;
   return (
-    <View style={styles.container}>
-      <ImageBackground source={{uri: backGroundImage}} style={styles.bgImage}>
-        <View style={styles.mainView}>
-          <Image source={{uri: image}} style={styles.posterImage} />
-          <View style={styles.detailsView}>
-            <Text style={styles.title}>
-              {/**doubt right here
-               *title margin */}
+    <TouchableOpacity
+      onPress={() => {
+        onMoviePress(id);
+      }}>
+      <View style={styles.container}>
+        <ImageBackground source={{uri: backGroundImage}} style={styles.bgImage}>
+          <View style={styles.mainView}>
+            <Image source={{uri: image}} style={styles.posterImage} />
+            <View style={styles.detailsView}>
+              <Text style={styles.title}>
+                {/**doubt right here
+                 *title margin */}
 
-              {data.title}
-            </Text>
-            <View style={styles.ratingView}>
-              <MaterialIcons name="star" size={30} color={colors.gold} />
-              <Text style={styles.rating}>{data.vote_average}</Text>
+                {data.title}
+              </Text>
+              <View style={styles.ratingView}>
+                <MaterialIcons name="star" size={30} color={colors.gold} />
+                <Text style={styles.rating}>{data.vote_average}</Text>
+              </View>
             </View>
           </View>
-        </View>
-      </ImageBackground>
-    </View>
+        </ImageBackground>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -64,7 +75,11 @@ class TopRated extends React.Component {
   };
 
   renderTopRated = ({item}) => {
-    return <Movies data={item} />;
+    return <Movies data={item} onMoviePress={this.gotoMovieDetails} />;
+  };
+
+  gotoMovieDetails = MovieId => {
+    this.props.navigation.navigate('TopRatedMovieDetails', {MovieId});
   };
   render() {
     const {topRatedData} = this.state;
