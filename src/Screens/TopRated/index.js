@@ -79,7 +79,7 @@ class TopRated extends React.Component {
   };
 
   gotoMovieDetails = MovieId => {
-    this.props.navigation.navigate('TopRatedMovieDetails', {MovieId});
+    this.props.navigation.navigate('Details', {MovieId});
   };
   render() {
     const {topRatedData} = this.state;

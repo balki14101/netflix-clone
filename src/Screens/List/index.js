@@ -8,10 +8,13 @@ import {
   Image,
 } from 'react-native';
 
+import {connect} from 'react-redux';
+
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {url} from '../../Constants/index';
 import styles from './Styles';
 import {colors} from '../../Styles/index';
+import {fetchPopularMovies} from '../../Reducers/Movie';
 
 const {posterPath} = url;
 
@@ -54,14 +57,18 @@ class List extends React.Component {
   };
 
   componentDidMount = () => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=628f811dd14b86f8fea17c431c364235&language=en-US&page=1`,
-    )
-      .then(response => response.json())
-      .then(json => {
-        // console.log({RESPONSE: json});
-        this.setState({list: json.results});
-      });
+    console.log(this.props);
+    const {dispatch} = this.props;
+
+    dispatch(fetchPopularMovies());
+    // fetch(
+    //   `https://api.themoviedb.org/3/movie/popular?api_key=628f811dd14b86f8fea17c431c364235&language=en-US&page=1`,
+    // )
+    //   .then(response => response.json())
+    //   .then(json => {
+    //     // console.log({RESPONSE: json});
+    //     this.setState({list: json.results});
+    //   });
   };
 
   navigateToDetailsScreen = MovieId => {
@@ -76,11 +83,11 @@ class List extends React.Component {
     />
   );
   render() {
-    // console.log(this.state.list);
+    console.log('popular movies==========', this.props.popularMovies);
     return (
       <View style={styles.container}>
         <FlatList
-          data={this.state.list}
+          data={this.props.popularMovies}
           renderItem={this.renderMovieItem}
           keyExtractor={item => item.id}
         />
@@ -89,4 +96,24 @@ class List extends React.Component {
   }
 }
 
-export default List;
+export default connect(
+  (state, props) => {
+    return {
+      popularMovies: state.movie.popularMovies,
+    };
+  },
+  dispatch => {
+    return {
+      dispatch,
+    };
+  },
+)(List);
+
+// export default connect((state,props) => {
+// return {list: state}
+//   dispatch => {
+//   return {
+//     dispatch,
+//   };
+// },
+// )(List);

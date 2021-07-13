@@ -13,6 +13,15 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../Styles';
 import {url} from '../../Constants/index';
 import styles from './Styles';
+import Axios from 'axios';
+import ApiClient from '../../ApiClient';
+import {connect} from 'react-redux';
+import {
+  fetchCrewData,
+  fetchMovieDetails,
+  fetchSimilarMovies,
+} from '../../Reducers/Movie';
+import Loader from '../../Components/Loader';
 
 const {imagePathDetailsScreen} = url;
 
@@ -44,10 +53,6 @@ const Cast = props => {
       }}>
       <View style={styles.castView}>
         {/* image margin doubt right
-          
-          
-          
-          
           here */}
         <View style={styles.insideCastView}>
           <Image source={{uri: image}} style={styles.castImage} />
@@ -59,69 +64,30 @@ const Cast = props => {
   );
 };
 
-// const Crew = props => {
-//   const data = props.data;
-//   const image = imagePathDetailsScreen + data.profile_path;
-
-//   return (
-//     <View style={styles.castView}>
-//       <View
-//         style={{
-//           margin: 5,
-//           alignItems: 'center',
-//         }}>
-//         <Image
-//           source={{uri: image}}
-//           style={{height: 150, width: 100, borderRadius: 8}}
-//         />
-//         <Text style={{color: '#000'}}>{data.name}</Text>
-//         <Text style={{color: '#000'}}>{data.department}</Text>
-//         <Text style={{color: '#000'}}>{data.job}</Text>
-//       </View>
-//     </View>
-//   );
-// };
-
 class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      details: null,
-      crewData: null,
-      similarData: null,
+      // details: null,
+      // crewData: null,
+      // similarData: null,
     };
     this.MovieId = props.route.params.MovieId;
   }
 
   componentDidMount = () => {
+    const {dispatch, details, crew, similarMovies} = this.props;
+
     if (this.MovieId != null) {
-      fetch(
-        `https://api.themoviedb.org/3/movie/${this.MovieId}?api_key=628f811dd14b86f8fea17c431c364235&language=en-US `,
-      )
-        .then(response => response.json())
-        .then(json => {
-          // console.log({Response: json});
-          this.setState({details: json});
-        });
-
-      fetch(
-        `https://api.themoviedb.org/3/movie/${this.MovieId}/credits?api_key=628f811dd14b86f8fea17c431c364235&language=en-US`,
-      )
-        .then(response => response.json())
-        .then(json => {
-          // console.log({Response: json});
-
-          this.setState({crewData: json});
-        });
-      fetch(
-        `https://api.themoviedb.org/3/movie/${this.MovieId}/similar?api_key=628f811dd14b86f8fea17c431c364235&language=en-US&page=1`,
-      )
-        .then(response => response.json())
-        .then(json => {
-          // console.log({response: json});
-
-          this.setState({similarData: json});
-        });
+      if (!details) {
+        dispatch(fetchMovieDetails({movieId: this.MovieId}));
+      }
+      if (!crew) {
+        dispatch(fetchCrewData({movieId: this.MovieId}));
+      }
+      if (!similarMovies) {
+        dispatch(fetchSimilarMovies({movieId: this.MovieId}));
+      }
     }
   };
 
@@ -142,10 +108,11 @@ class Details extends React.Component {
   // };
 
   render() {
+    console.log({props: this.props});
     // console.log('this is details', this.state.details);
-    const details = this.state.details;
-    const crewData = this.state.crewData;
-    const similarData = this.state.similarData;
+    const details = this.props.details;
+    const crewData = this.props.crew;
+    const similarData = this.props.similarMovies;
 
     const backdrop = details
       ? imagePathDetailsScreen + details.backdrop_path
@@ -155,11 +122,7 @@ class Details extends React.Component {
     // const name = similarData ? similarData.title : '---;';
 
     if (details == null || crewData == null || similarData == null) {
-      return (
-        <View style={{flex: 1}}>
-          <ActivityIndicator />
-        </View>
-      );
+      return <Loader />;
     }
     return (
       <ScrollView style={styles.container}>
@@ -195,12 +158,7 @@ class Details extends React.Component {
               </Text>
             </ScrollView>
           </View>
-          <View>
-            {/* <Text style={styles.header}>Crew</Text> */}
-            {/* <ScrollView horizontal={true}>
-              <Text>{crewData.crew.map(this.renderCrewDetails)}</Text>
-            </ScrollView> */}
-          </View>
+
           <View style={styles.top20}>
             <Text style={styles.header}>Similar Movies</Text>
             <ScrollView horizontal style={styles.top10}>
@@ -213,4 +171,19 @@ class Details extends React.Component {
   }
 }
 
-export default Details;
+export default connect(
+  (state, props) => {
+    const movieId = props.route.params.MovieId;
+    return {
+      detailsLoading: state.movie.detailsLoading[movieId],
+      details: state.movie.details[movieId],
+      crew: state.movie.crew[movieId],
+      similarMovies: state.movie.similarMovies[movieId],
+    };
+  },
+  dispatch => {
+    return {
+      dispatch,
+    };
+  },
+)(Details);

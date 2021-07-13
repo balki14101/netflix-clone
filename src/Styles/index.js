@@ -19,6 +19,7 @@ const colors = {
   overview: '#787982',
   cardBg: '#252632',
   tabBarInactive: '#b8b7b6',
+  red: '#E50914',
 };
 
 const iconSize = {
