@@ -6,8 +6,8 @@ import {View, ActivityIndicator} from 'react-native';
 import globalStyles, {colors, iconSize} from '../../Styles';
 
 const Loader = () => (
-  <View style={globalStyles.screenCenter}>
-    <ActivityIndicator color={colors.blue} size={iconSize.large} />
+  <View style={[globalStyles.screenCenter, {backgroundColor: colors.bgBlack}]}>
+    <ActivityIndicator color={colors.red} size={iconSize.large} />
   </View>
 );
 export default Loader;
