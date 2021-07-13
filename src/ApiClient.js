@@ -17,7 +17,7 @@ ApiClient.interceptors.response.use(
   response => response.data,
   err => {
     return Promise.reject(err);
-  }
+  },
 );
 
 export default ApiClient;

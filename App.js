@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 
 // screens imports
 import Navigator from './src/Navigator';
-import { colors } from './src/Styles';
+import {colors} from './src/Styles';
 
 /**
  * @function App
@@ -29,7 +29,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bgBlack
+    backgroundColor: colors.bgBlack,
   },
 });
 

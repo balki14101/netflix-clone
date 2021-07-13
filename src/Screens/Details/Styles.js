@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   titleView: {
     backgroundColor: colors.bgBlack,
     height: 200,
+
     justifyContent: 'flex-end',
   },
   title: {

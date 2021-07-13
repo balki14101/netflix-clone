@@ -16,8 +16,10 @@ export const fetchSimilarMovies = createAsyncThunk(
 );
 export const fetchPopularMovies = createAsyncThunk(
   'movie/fetchPopularMovies',
-  () => ApiClient.get(`movie/popular`),
+  () => ApiClient.get('movie/popular'),
 );
+
+const a = 10;
 
 const initialState = {
   popularMovies: [],

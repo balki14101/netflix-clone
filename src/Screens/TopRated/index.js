@@ -62,7 +62,7 @@ class TopRated extends React.Component {
 
   fetchTopRated = () => {
     fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?api_key=628f811dd14b86f8fea17c431c364235&language=en-US&page=1`,
+      'https://api.themoviedb.org/3/movie/top_rated?api_key=628f811dd14b86f8fea17c431c364235&language=en-US&page=1',
     )
       .then(response => response.json())
       .then(data => this.setState({topRatedData: data.results}))
