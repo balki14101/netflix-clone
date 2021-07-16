@@ -2,9 +2,10 @@ import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {colors} from '../../Styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import TopRated from '../TopRated';
 import List from '../List';
 import {createStackNavigator} from '@react-navigation/stack';
+import Upcoming from '../Upcoming';
+import Feeds from '../Feeds/index';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -28,15 +29,15 @@ const HomeStack = () => {
   );
 };
 
-const TopRatedStack = () => {
+const UpcomingStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="TopRated"
-        component={TopRated}
+        name="Upcoming"
+        component={Upcoming}
         options={{
-          title: 'TopRated Movies ',
-          headerTintColor: '#808080',
+          title: 'Upcoming Movies ',
+          headerTintColor: '#fff',
           headerStyle: {
             backgroundColor: '#252632',
           },
@@ -52,7 +53,7 @@ const Main = () => {
       activeColor={colors.white}
       inactiveColor={colors.tabBarInActive}
       barStyle={{backgroundColor: '#001'}}>
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Home"
         component={HomeStack}
         options={{
@@ -61,10 +62,23 @@ const Main = () => {
             <MaterialCommunityIcons name="home" color={color} size={20} />
           ),
         }}
+      /> */}
+      <Tab.Screen
+        name="Feeds"
+        component={Feeds}
+        options={{
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons
+              name="certificate"
+              color={color}
+              size={20}
+            />
+          ),
+        }}
       />
       <Tab.Screen
-        name="TopRated"
-        component={TopRatedStack}
+        name="Upcoming"
+        component={UpcomingStack}
         options={{
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons

@@ -23,7 +23,7 @@ import {
 } from '../../Reducers/Movie';
 import Loader from '../../Components/Loader';
 
-const {imagePathDetailsScreen} = url;
+const imagePathDetailsScreen = url.imagePathDetailsScreen;
 
 const Movies = props => {
   const data = props.name;
@@ -95,6 +95,14 @@ class Details extends React.Component {
     return <Movies name={item} key={index} />;
   };
 
+  /**
+   * @function renderCastDetails
+   * @description Takes a, b and returns xyz
+   * @returns {JSX}
+   * @param {object} item 
+   * @param {number} index 
+ 
+   */
   renderCastDetails = (item, index) => {
     return <Cast data={item} onCastPress={this.gotoCast} key={index} />;
   };
@@ -108,9 +116,8 @@ class Details extends React.Component {
   // };
 
   render() {
-    console.log({props: this.props});
-    // console.log('this is details', this.state.details);
     const details = this.props.details;
+    console.log(details);
     const crewData = this.props.crew;
     const similarData = this.props.similarMovies;
 
@@ -173,6 +180,7 @@ class Details extends React.Component {
 
 export default connect(
   (state, props) => {
+    console.log(props);
     const movieId = props.route.params.MovieId;
     return {
       detailsLoading: state.movie.detailsLoading[movieId],

@@ -57,18 +57,9 @@ class List extends React.Component {
   };
 
   componentDidMount = () => {
-    console.log(this.props);
     const {dispatch} = this.props;
 
     dispatch(fetchPopularMovies());
-    // fetch(
-    //   `https://api.themoviedb.org/3/movie/popular?api_key=628f811dd14b86f8fea17c431c364235&language=en-US&page=1`,
-    // )
-    //   .then(response => response.json())
-    //   .then(json => {
-    //     // console.log({RESPONSE: json});
-    //     this.setState({list: json.results});
-    //   });
   };
 
   navigateToDetailsScreen = MovieId => {
@@ -83,7 +74,6 @@ class List extends React.Component {
     />
   );
   render() {
-    console.log('popular movies==========', this.props.popularMovies);
     return (
       <View style={styles.container}>
         <FlatList
@@ -108,12 +98,3 @@ export default connect(
     };
   },
 )(List);
-
-// export default connect((state,props) => {
-// return {list: state}
-//   dispatch => {
-//   return {
-//     dispatch,
-//   };
-// },
-// )(List);

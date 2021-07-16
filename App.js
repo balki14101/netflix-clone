@@ -1,7 +1,7 @@
 // library imports
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaView, View, StyleSheet} from 'react-native';
+import {NavigationContainer, DarkTheme} from '@react-navigation/native';
 import {store} from './src/store';
 import {Provider} from 'react-redux';
 
@@ -14,13 +14,20 @@ import {colors} from './src/Styles';
  * @description This is the starting point of App
  * @returns {JSX}
  */
+
+const MyTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    background: colors.bgBlack,
+  },
+};
+
 const App = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <SafeAreaView style={styles.container}>
-          <Navigator />
-        </SafeAreaView>
+      <NavigationContainer theme={MyTheme}>
+        <Navigator />
       </NavigationContainer>
     </Provider>
   );
@@ -29,7 +36,6 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bgBlack,
   },
 });
 

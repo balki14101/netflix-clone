@@ -18,8 +18,10 @@ export const fetchPopularMovies = createAsyncThunk(
   'movie/fetchPopularMovies',
   () => ApiClient.get('movie/popular'),
 );
-
-const a = 10;
+export const fetchUpcomingMovies = createAsyncThunk(
+  'movie/fetchUpcomingMovies',
+  () => ApiClient.get('movie/upcoming'),
+);
 
 const initialState = {
   popularMovies: [],
@@ -27,6 +29,7 @@ const initialState = {
   details: {}, // Key represents movieId, value is movie details
   crew: {}, // Key represents movieId, value is crew details
   similarMovies: {}, // Key represents movieId, value is crew details
+  upcomingMovies: [],
 };
 
 export const movieSlice = createSlice({
@@ -34,6 +37,9 @@ export const movieSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
+    builder.addCase(fetchPopularMovies.fulfilled, (state, action) => {
+      state.popularMovies = action.payload.results;
+    });
     builder.addCase(fetchMovieDetails.pending, (state, action) => {
       state.detailsLoading[action.meta.arg.movieId] = true;
     });
@@ -50,8 +56,9 @@ export const movieSlice = createSlice({
     builder.addCase(fetchSimilarMovies.fulfilled, (state, action) => {
       state.similarMovies[action.meta.arg.movieId] = action.payload;
     });
-    builder.addCase(fetchPopularMovies.fulfilled, (state, action) => {
-      state.popularMovies = action.payload.results;
+
+    builder.addCase(fetchUpcomingMovies.fulfilled, (state, action) => {
+      state.upcomingMovies = action.payload.results;
     });
   },
 });

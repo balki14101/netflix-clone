@@ -20,6 +20,16 @@ const colors = {
   cardBg: '#252632',
   tabBarInactive: '#b8b7b6',
   red: '#E50914',
+
+  primary: '#E50914',
+  background: '#000011',
+  backgroundAlpha: '#000000EE',
+  surface: '#252632',
+  textPrimary: '#FFFFFF',
+  textSecondary: '#808080',
+  iconPrimary: '#FFFFFF',
+  iconSecondary: '#808080',
+  border: '#444444',
 };
 
 const iconSize = {
