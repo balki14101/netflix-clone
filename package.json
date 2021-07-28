@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "commit": "npm run lint -- --fix && git-cz"
+    "commit": "npm run lint -- --fix && git-cz",
+    "generate-apk": "cd android && ./gradlew assembleRelease && cd .."
   },
   "husky": {
     "hooks": {

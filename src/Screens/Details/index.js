@@ -99,9 +99,9 @@ class Details extends React.Component {
    * @function renderCastDetails
    * @description Takes a, b and returns xyz
    * @returns {JSX}
-   * @param {object} item 
-   * @param {number} index 
- 
+   * @param {object} item
+   * @param {number} index
+
    */
   renderCastDetails = (item, index) => {
     return <Cast data={item} onCastPress={this.gotoCast} key={index} />;

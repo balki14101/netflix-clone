@@ -53,7 +53,7 @@ const Main = () => {
       activeColor={colors.white}
       inactiveColor={colors.tabBarInActive}
       barStyle={{backgroundColor: '#001'}}>
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Home"
         component={HomeStack}
         options={{
@@ -62,7 +62,7 @@ const Main = () => {
             <MaterialCommunityIcons name="home" color={color} size={20} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Feeds"
         component={Feeds}

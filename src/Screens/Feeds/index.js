@@ -13,10 +13,9 @@ class Feeds extends React.Component {
   componentDidMount = async () => {
     try {
       const res = await FirebaseApiClient(
-        `p%2Fnetflix%2Fapi%2Ffeed%2F1.json?alt=media`,
+        'p%2Fnetflix%2Fapi%2Ffeed%2F1.json?alt=media',
       );
       this.setState({feeds: res.results});
-      this.gotoTvDetails('71446');
     } catch (e) {
       console.log({e});
     }

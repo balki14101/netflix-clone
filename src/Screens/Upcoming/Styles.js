@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bgImage: {
-    height: screenHeight/4,
+    height: screenHeight / 4,
     width: screenWidth,
   },
   mainView: {
-    height:screenHeight/2,
+    height: screenHeight / 2,
   },
 });
 

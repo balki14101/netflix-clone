@@ -11,7 +11,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {colors} from '../../Styles/index';
 import moment from 'moment';
 import ViewMoreText from 'react-native-view-more-text';
-import {Button} from 'react-native-elements/dist/buttons/Button';
 import {TouchableOpacity} from 'react-native';
 
 const imagePathDetailsScreen = url.imagePathDetailsScreen;
@@ -42,22 +41,32 @@ export class TvDetails extends Component {
   componentDidMount = () => {
     const {dispatch, details} = this.props;
 
-    if (this.TvId != null)
+    if (this.TvId != null) {
       if (!details) {
         dispatch(fetchTvShowDetails({tvId: this.TvId}));
       }
+    }
   };
   renderCloseButton = () => {
     return (
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={() => {
+          this.setModalVisible(!this.state.modalVisible);
+        }}
         style={{
           backgroundColor: colors.white,
           height: 50,
           width: 50,
           borderRadius: 50 / 2,
           marginVertical: 16,
-        }}></TouchableOpacity>
+        }}>
+        <View
+          style={{
+            alignItems: 'center',
+          }}>
+          <MaterialIcons name="close" color="black" size={45} />
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -76,11 +85,10 @@ export class TvDetails extends Component {
           animationType="slide"
           transparent={true}
           visible={this.state.modalVisible}
-          // onRequestClose={() => {
-          //   Alert.alert('Modal has been closed.');
-          //   this.setModalVisible(!modalVisible);
-          // }}
-        >
+          onRequestClose={() => {
+            // Alert.alert('Modal has been closed.');
+            this.setModalVisible(!modalVisible);
+          }}>
           <View style={styles.modalCenteredView}>
             <View style={styles.modalView}>
               {this.props.details?.seasons.map((season, currentIndex) => {
@@ -99,24 +107,10 @@ export class TvDetails extends Component {
                   </Text>
                 );
               })}
-              {this.renderCloseButton()}
-              {/* <Text style={styles.textStyle}>Hide Mo</Text>
-              <Text style={styles.textStyle}>Hide Modal</Text>
-              <Text style={styles.textStyle}>Hide Modal</Text>
-              <Text style={styles.textStyle}>Hide Modal</Text> */}
+              <View>{this.renderCloseButton()}</View>
             </View>
           </View>
         </Modal>
-        {/**
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         */}
 
         <Image
           source={{uri: image}}
@@ -172,7 +166,8 @@ export class TvDetails extends Component {
               backgroundColor: '#808080',
               borderRadius: 10,
               width: '50%',
-            }}></View>
+            }}
+          />
           <View>
             <Pressable
               style={styles.buttonOpen}
@@ -182,9 +177,14 @@ export class TvDetails extends Component {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                 }}>
-                {/* <Text style={[styles.textStyle]}>
-                  {this.state.selectedSeason}
-                </Text> */}
+                <Text style={[styles.textStyle]}>
+                  {/* {'sample output'} */}
+                  {console.log(this.props)}
+                  {
+                    this.props.details.seasons[this.state.selectedSeasonIndex]
+                      .name
+                  }
+                </Text>
                 <MaterialIcons name="arrow-drop-down" color="#fff" size={24} />
               </View>
             </Pressable>
@@ -232,10 +232,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: colors.textSecondary,
+    color: colors.textPrimary,
     fontWeight: 'bold',
-    paddingVertical: 16,
-    fontSize: 18,
+    // paddingVertical: 16,
+    fontSize: 16,
   },
   selectedSeasonText: {
     color: colors.textPrimary,
