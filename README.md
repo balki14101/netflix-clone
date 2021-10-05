@@ -67,7 +67,7 @@ TvShow Details <br />
 
 
 ## Download APK
-Download and try this APK from [here](https://i.diawi.com/wtFSfT) <br/>
+Download and try this APK from [here](https://i.diawi.com/25s8WS) <br/>
 Note: Work In-Progress(90% completed- Feeds Screen is in final stage)
 
 ## To Run in VSCode
