@@ -6,6 +6,10 @@ It uses APIs from [TMDB](https://developers.themoviedb.org/3/getting-started/int
 Inspired from Netflix UI
 
 
+## Download APK
+Download and try this APK from [here](https://github.com/balki14101/popular-movies/releases/tag/v1.0) <br/>
+
+
 ## Preview
 <br />
 <b>List <br />
@@ -66,9 +70,6 @@ TvShow Details <br />
 
 
 
-## Download APK
-Download and try this APK from [here](https://github.com/balki14101/popular-movies/releases/tag/v1.0) <br/>
-Note: Work In-Progress(90% completed- Feeds Screen is in final stage)
 
 ## To Run in VSCode
 Follow the commands below
